@@ -1,4 +1,4 @@
-package ifpb.edu.br.dac.carlos.projetosts.entities;
+package ifpb.edu.br.dac.carlos.projetosts.model.entitity;
 
 import java.io.Serializable;
 import java.util.Objects;
