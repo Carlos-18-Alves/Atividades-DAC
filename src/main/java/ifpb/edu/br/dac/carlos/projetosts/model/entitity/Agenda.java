@@ -4,31 +4,36 @@ import java.io.Serializable;
 import java.util.Objects;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Agenda implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	private String evento;
-	private String data;
+	private String nomeEvento;
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "DATAS_ID")
+	private Datas data;
 	
 	public String getEvento() {
-		return evento;
+		return nomeEvento;
 	}
 
 	public void setEvento(String evento) {
-		this.evento = evento;
+		this.nomeEvento = evento;
 	}
 	
-	public String getData() {
+	public Datas getData() {
 		return data;
 	}
 
-	public void setData(String data) {
+	public void setData(Datas data) {
 		this.data = data;
 	}
 
@@ -58,7 +63,7 @@ public class Agenda implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Agenda [id=" + id + ", evento=" + evento + ", data=" + data + "]";
+		return "Agenda [id=" + id + ", evento=" + nomeEvento + ", data=" + data + "]";
 	}
 	
 }

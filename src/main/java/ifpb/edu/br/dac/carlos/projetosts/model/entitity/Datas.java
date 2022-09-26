@@ -4,7 +4,11 @@ import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.util.Objects;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 /**
  * @author Carlos Alves
@@ -12,6 +16,10 @@ import javax.persistence.Entity;
  */
 @Entity
 public class Datas {
+	@Id
+	@Column(name = "DATAS_ID")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
 	private int dia,mes,ano;
 	public Datas(int dia, int mes, int ano) throws Exception {
 		try {
