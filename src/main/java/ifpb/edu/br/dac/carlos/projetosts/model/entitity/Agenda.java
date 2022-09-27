@@ -18,7 +18,7 @@ public class Agenda implements Serializable {
 	private Integer id;
 	private String nomeEvento;
 	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "DATAS_ID")
+	@JoinColumn(name = "DATA_ID")
 	private Datas data;
 	
 	public String getEvento() {

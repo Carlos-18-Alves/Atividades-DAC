@@ -49,19 +49,24 @@ public class AgendaController {
 	}
 	
 	public void save() {
-		if(validationService.validateNomeEvento(nomeEvento) && validationService.validateDate(data)) {
-			Agenda agenda = new Agenda();
-			agenda.setEvento(nomeEvento);
-			agenda.setData(data);
+		try {
+			if(validationService.validateNomeEvento(nomeEvento) && validationService.validateDate(data)) {
+				Agenda agenda = new Agenda();
+				agenda.setEvento(nomeEvento);
+				agenda.setData(data);
+				
+				agendaService.save(agenda);
+				System.out.println("Agenda criada! ID = "+id);
+			} 
+			else
+				System.out.println("Agenda não foi criada, o nome ou data é inválido");
 			
-			agendaService.save(agenda);
-			System.out.println("Agenda criada! ID = "+id);
-		} 
-		else
-			System.out.println("Agenda não foi criada, o nome ou data é inválido");
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
 	}
 	
-	public void update() {
+	public void update() throws Exception {
 		if(validationService.validateNomeEvento(nomeEvento) && validationService.validateDate(data)) {
 			Agenda agenda = new Agenda();
 			agenda.setEvento(nomeEvento);

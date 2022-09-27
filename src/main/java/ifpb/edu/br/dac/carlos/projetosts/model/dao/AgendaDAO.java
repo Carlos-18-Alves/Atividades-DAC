@@ -11,7 +11,7 @@ import ifpb.edu.br.dac.carlos.projetosts.model.entitity.Agenda;
 @Repository
 public interface AgendaDAO extends PagingAndSortingRepository<Agenda, Integer> {
 	
-	List<Agenda> findByEvento(String name);
+	List<Agenda> findByNomeEvento(String name);
 	List<Agenda> findByDataLessThan(String data, Pageable page);
 
 } 

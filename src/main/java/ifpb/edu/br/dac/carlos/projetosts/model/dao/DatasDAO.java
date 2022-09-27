@@ -11,6 +11,8 @@ import ifpb.edu.br.dac.carlos.projetosts.model.entitity.Datas;
 
 @Repository
 public interface DatasDAO extends PagingAndSortingRepository<Datas, Integer> {
-	List<Datas> findByYear(int year);
-	List<Agenda> findByDataLessThan(String data, Pageable page);
+	
+	List<Datas> findByAno(int ano);
+	List<Agenda> findByAnoLessThan(String data, Pageable page);
+	
 }

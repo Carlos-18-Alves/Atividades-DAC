@@ -9,6 +9,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import ifpb.edu.br.dac.carlos.projetosts.controller.AgendaController;
+import ifpb.edu.br.dac.carlos.projetosts.controller.DatasController;
 import ifpb.edu.br.dac.carlos.projetosts.model.entitity.Agenda;
 import ifpb.edu.br.dac.carlos.projetosts.model.entitity.Datas;
 
@@ -17,6 +18,8 @@ public class ProjetostsApplication implements CommandLineRunner {
 	
 	@Autowired
 	private AgendaController agendaController;
+	@Autowired
+	private DatasController datasController;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(ProjetostsApplication.class, args);
@@ -44,7 +47,7 @@ public class ProjetostsApplication implements CommandLineRunner {
 			switch (opc) {
 			case "1":
 				System.out.print("Nome do evento: ");
-				agendaController.setNomeEvento(opc);
+				agendaController.setNomeEvento(ler.nextLine());
 				
 				System.out.println("Data do evento: ");
 				System.out.print("Dia: ");
@@ -54,9 +57,24 @@ public class ProjetostsApplication implements CommandLineRunner {
 				System.out.print("Ano: ");
 				ano = Integer.parseInt(ler.nextLine());
 				data = new Datas(dia, mes, ano);
-				agendaController.setData(data);
 				
-				agendaController.save();
+				datasController.setData(data);
+				
+				try {
+					datasController.save();
+				} catch (Exception e) {
+					System.out.println(e.getMessage());
+				} 
+				
+				agendaController.setData(datasController.getData());
+				
+				try {
+					agendaController.save();
+				} catch (Exception e) {
+					System.out.println(e.getMessage());
+				}
+				
+				
 				break;
 				
 			case "2":
@@ -91,7 +109,6 @@ public class ProjetostsApplication implements CommandLineRunner {
 					data = new Datas(dia, mes, ano);
 					agendaController.setData(data);
 				}
-				
 				agendaController.update();
 				break;
 				
