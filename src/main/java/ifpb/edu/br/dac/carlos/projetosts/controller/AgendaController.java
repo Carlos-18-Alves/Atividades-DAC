@@ -56,7 +56,7 @@ public class AgendaController {
 				agenda.setData(data);
 				
 				agendaService.save(agenda);
-				System.out.println("Agenda criada! ID = "+id);
+				System.out.println("Agenda criada!" + agenda.toString());
 			} 
 			else
 				System.out.println("Agenda não foi criada, o nome ou data é inválido");
@@ -72,8 +72,8 @@ public class AgendaController {
 			agenda.setEvento(nomeEvento);
 			agenda.setData(data);
 			
-			agendaService.save(agenda);
-			System.out.println("A agenda foi atualizada! ID = "+id);
+			agendaService.update(agenda);
+			System.out.println("A agenda foi atualizada!" + agenda.toString());
 		} 
 		else
 			System.out.println("Agenda não foi atualizada, o nome ou data é inválido");
@@ -81,7 +81,7 @@ public class AgendaController {
 	
 	public void delete() {
 		agendaService.delete(id);
-		System.out.println("A agenda foi deletada! ID = "+id);
+		System.out.println("A agenda foi deletada!");
 	}
 	
 	public List<Agenda> getAll() {
@@ -91,7 +91,7 @@ public class AgendaController {
 
 	public void deleteAll() {
 		agendaService.deleteAll();
-		System.out.println("Todos os eventos foram deletados!");
+		System.out.println("Todos as agendas foram deletados!");
 	}
 	
 }

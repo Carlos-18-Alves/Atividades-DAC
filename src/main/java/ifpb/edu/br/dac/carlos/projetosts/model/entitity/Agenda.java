@@ -17,9 +17,10 @@ public class Agenda implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String nomeEvento;
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "DATA_ID")
 	private Datas data;
+	private String dataStr;
 	
 	public String getEvento() {
 		return nomeEvento;
@@ -35,6 +36,7 @@ public class Agenda implements Serializable {
 
 	public void setData(Datas data) {
 		this.data = data;
+		this.dataStr = data.toString();
 	}
 
 	public void setId(Integer id) {
@@ -45,10 +47,15 @@ public class Agenda implements Serializable {
 		return id;
 	}
 	
+	public String getDataStr() {
+		return dataStr;
+	}
+	
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -63,7 +70,7 @@ public class Agenda implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Agenda [id=" + id + ", evento=" + nomeEvento + ", data=" + data + "]";
+		return "Agenda [id=" + id + ", evento=" + nomeEvento + ", data=" + data.toString() + "]";
 	}
 	
 }

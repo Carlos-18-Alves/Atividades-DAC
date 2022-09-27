@@ -49,7 +49,7 @@ public class ProjetostsApplication implements CommandLineRunner {
 				System.out.print("Nome do evento: ");
 				agendaController.setNomeEvento(ler.nextLine());
 				
-				System.out.println("Data do evento: ");
+				System.out.println("Data do evento ");
 				System.out.print("Dia: ");
 				dia = Integer.parseInt(ler.nextLine());
 				System.out.print("Mês: ");
@@ -89,27 +89,35 @@ public class ProjetostsApplication implements CommandLineRunner {
 				System.out.print("Insira o id da agenda: ");
 				id = Integer.parseInt(ler.nextLine());
 				
-				System.out.print("Deseja alterar o nome do evento? (s/n)");
-				String yn = ler.nextLine();
-				if(yn.equals("s")) {
-					System.out.print("Insira o novo nome do evento: ");
-					agendaController.setNomeEvento(ler.nextLine());
+				System.out.println("Insira a nova data");
+				System.out.print("Dia: ");
+				dia = Integer.parseInt(ler.nextLine());
+				System.out.print("Mês: ");
+				mes = Integer.parseInt(ler.nextLine());
+				System.out.print("Ano: ");
+				ano = Integer.parseInt(ler.nextLine());
+				data = new Datas(dia, mes, ano);
+				data.setId(id);
+				
+				datasController.setData(data);
+				
+				try {
+					datasController.update();
+				} catch (Exception e) {
+					System.out.println(e.getMessage());
 				}
 				
-				System.out.print("Deseja alterar a data do evento? (s/n)");
-				yn = ler.nextLine();
-				if(yn.equals("s")) {
-					System.out.print("Insira a nova data: ");
-					System.out.print("Dia: ");
-					dia = Integer.parseInt(ler.nextLine());
-					System.out.print("Mês: ");
-					mes = Integer.parseInt(ler.nextLine());
-					System.out.print("Ano: ");
-					ano = Integer.parseInt(ler.nextLine());
-					data = new Datas(dia, mes, ano);
-					agendaController.setData(data);
+				System.out.print("Insira o novo nome do evento: ");
+				agendaController.setNomeEvento(ler.nextLine());
+				agendaController.setData(datasController.getData());
+				agendaController.setId(id);
+				
+				try {
+					agendaController.update();
+				} catch (Exception e) {
+					System.out.println(e.getMessage());
 				}
-				agendaController.update();
+				
 				break;
 				
 			case "4":

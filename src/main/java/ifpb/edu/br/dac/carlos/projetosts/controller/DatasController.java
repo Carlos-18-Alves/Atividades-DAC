@@ -48,7 +48,7 @@ public class DatasController {
 	public void update() throws Exception {
 		
 		if(validationService.validateDate(data)) {
-			datasService.save(data);
+			datasService.update(data);
 		}
 		else
 			System.out.println("A data não pôde ser atualizada");
