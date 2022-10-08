@@ -8,28 +8,25 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-/**
- * @author Carlos Alves
- * Classe que vai ajudar na utilização de datas, já que precisamos trabalhar com datas válidas.
- */
 @Entity
-public class Datas {
+public class Dates {
 	@Id
-	@Column(name = "DATA_ID")
+	@Column(name  = "DATE_ID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	private int dia,mes,ano;
+	private int day,month,year;
 	
-	public Datas(int dia, int mes, int ano) {
-		this.mes = mes;
-		this.dia = dia;
-		this.ano = ano;
+	public Dates(int day, int month, int year) {
+		this.day = day;
+		this.month = month;
+		this.year = year;
 	}
 	
-	public Datas() {
+	public Dates() {
 		
 	}
+
 	public Integer getId() {
 		return id;
 	}
@@ -37,29 +34,29 @@ public class Datas {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	
-	public int getDia() {
-		return dia;
+
+	public int getDay() {
+		return day;
 	}
-	
-	public void setDia(int dia) {
-		this.dia = dia;
+
+	public void setDay(int day) {
+		this.day = day;
 	}
-	
-	public int getMes() {
-		return mes;
+
+	public int getMonth() {
+		return month;
 	}
-	
-	public void setMes(int mes) {
-		this.mes = mes;
+
+	public void setMonth(int month) {
+		this.month = month;
 	}
-	
-	public int getAno() {
-		return ano;
+
+	public int getYear() {
+		return year;
 	}
-	
-	public void setAno(int ano) {
-		this.ano = ano;
+
+	public void setYear(int year) {
+		this.year = year;
 	}
 
 	@Override
@@ -75,7 +72,7 @@ public class Datas {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Datas other = (Datas) obj;
+		Dates other = (Dates) obj;
 		return Objects.equals(id, other.id);
 	}
 
@@ -83,13 +80,13 @@ public class Datas {
 	public String toString() {
 		String mesNome = null;
 		
-		switch (mes) {
+		switch (month) {
 		case 1:
 			mesNome = "jan";
 			break;
 			
 		case 2:
-			mesNome = "fev";
+			mesNome = "feb";
 			break;
 			
 		case 3:
@@ -97,11 +94,11 @@ public class Datas {
 			break;
 			
 		case 4:
-			mesNome = "abr";
+			mesNome = "apr";
 			break;
 			
 		case 5:
-			mesNome = "mai";
+			mesNome = "may";
 			break;
 			
 		case 6:
@@ -113,15 +110,15 @@ public class Datas {
 			break;
 			
 		case 8:
-			mesNome = "ago";
+			mesNome = "aug";
 			break;
 			
 		case 9:
-			mesNome = "set";
+			mesNome = "sep";
 			break;
 			
 		case 10:
-			mesNome = "out";
+			mesNome = "oct";
 			break;
 			
 		case 11:
@@ -129,14 +126,14 @@ public class Datas {
 			break;
 
 		case 12:
-			mesNome = "dez";
+			mesNome = "dec";
 			break;
 			
 		default:
 			break;
 		}
 		
-		return dia + "-"+ mesNome + "-" + ano;
+		return day + "-"+ mesNome + "-" + year;
 	}
 	
 }

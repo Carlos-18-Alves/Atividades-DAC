@@ -5,24 +5,17 @@ import java.time.LocalDate;
 
 import org.springframework.stereotype.Service;
 
-import ifpb.edu.br.dac.carlos.projetosts.model.entitity.Datas;
+import ifpb.edu.br.dac.carlos.projetosts.model.entitity.Dates;
 
 @Service
 public class ValidationService {
-
-	/**
-	 * @param data
-	 * @return
-	 * Método que vai retornar true se a data for após a atual, já que os eventos devem ser futuros.
-	 * @throws Exception 
-	 * @throws 
-	 */
-	public boolean validateDate(Datas data) throws Exception {
+	
+	public boolean validateDate(Dates date) throws Exception {
 		LocalDate actualDate = LocalDate.now();
 		LocalDate dataValidacao = null;
 		
 		try {
-			dataValidacao = LocalDate.of(data.getAno(), data.getMes(), data.getDia());
+			dataValidacao = LocalDate.of(date.getYear(), date.getMonth(), date.getDay());
 		} catch (DateTimeException dte) {
 			throw new Exception("Data inválida!");
 		}

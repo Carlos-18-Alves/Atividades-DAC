@@ -8,18 +8,18 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import ifpb.edu.br.dac.carlos.projetosts.controller.AgendaController;
-import ifpb.edu.br.dac.carlos.projetosts.controller.DatasController;
-import ifpb.edu.br.dac.carlos.projetosts.model.entitity.Agenda;
-import ifpb.edu.br.dac.carlos.projetosts.model.entitity.Datas;
+import ifpb.edu.br.dac.carlos.projetosts.controller.CalendarController;
+import ifpb.edu.br.dac.carlos.projetosts.controller.DatesController;
+import ifpb.edu.br.dac.carlos.projetosts.model.entitity.Calendar;
+import ifpb.edu.br.dac.carlos.projetosts.model.entitity.Dates;
 
 @SpringBootApplication
 public class ProjetostsApplication implements CommandLineRunner {
 	
 	@Autowired
-	private AgendaController agendaController;
+	private CalendarController calendarController;
 	@Autowired
-	private DatasController datasController;
+	private DatesController datesController;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(ProjetostsApplication.class, args);
@@ -27,49 +27,50 @@ public class ProjetostsApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		Scanner ler = new Scanner(System.in);
-		
-		Integer id;
-		int dia;
-		int mes;
-		int ano;
-		Datas data;
+		Scanner read = new Scanner(System.in);
 		
 		System.out.println("O que deseja fazer?");
 		
 		boolean cond = true;
 		
 		while(cond) {
-			System.out.println("1 - Criar evento \n2 - Listar eventos \n3 - Atualizar evento "
-					+ "\n4 - Deletar evento \n5 - Deletar tudo \n6 - Sair" );
-			String opc = ler.nextLine();
+			Integer id;
+			int day;
+			int month;
+			int year;
+			Dates date;
+			System.out.println("1 - Create event \n2 - List events '\n3 - Update event"
+					+ "\n4 - Delete event \n5 - Delete all \n6 - Exit" );
+			String opc = read.nextLine();
 		
 			switch (opc) {
 			case "1":
-				System.out.print("Nome do evento: ");
-				agendaController.setNomeEvento(ler.nextLine());
+				System.out.print("Event name: ");
+				calendarController.setNomeEvento(read.nextLine());
 				
-				System.out.println("Data do evento ");
-				System.out.print("Dia: ");
-				dia = Integer.parseInt(ler.nextLine());
-				System.out.print("Mês: ");
-				mes = Integer.parseInt(ler.nextLine());
-				System.out.print("Ano: ");
-				ano = Integer.parseInt(ler.nextLine());
-				data = new Datas(dia, mes, ano);
+				System.out.println("Event date");
+				System.out.print("Day: ");
+				day = Integer.parseInt(read.nextLine());
+				System.out.print("Month: ");
+				month = Integer.parseInt(read.nextLine());
+				System.out.print("Year: ");
+				year = Integer.parseInt(read.nextLine());
+				date = new Dates(day, month, year);
 				
-				datasController.setData(data);
+				datesController.setData(date);
 				
 				try {
-					datasController.save();
+					datesController.save();
+					System.out.println("Date created!");
 				} catch (Exception e) {
 					System.out.println(e.getMessage());
 				} 
 				
-				agendaController.setData(datasController.getData());
+				calendarController.setData(datesController.getData());
 				
 				try {
-					agendaController.save();
+					calendarController.save();
+					System.out.println("The event was created!");
 				} catch (Exception e) {
 					System.out.println(e.getMessage());
 				}
@@ -78,42 +79,41 @@ public class ProjetostsApplication implements CommandLineRunner {
 				break;
 				
 			case "2":
-				List<Agenda> agendas = agendaController.getAll();
+				List<Calendar> calendars = calendarController.getAll();
 				
-				for (Agenda agenda : agendas) {
-					System.out.println(agenda);
+				for (Calendar calendar : calendars) {
+					System.out.println(calendar);
 				}
 				break;
 				
 			case "3":
-				System.out.print("Insira o id da agenda: ");
-				id = Integer.parseInt(ler.nextLine());
+				System.out.print("Insert the agenda's id: ");
+				id = Integer.parseInt(read.nextLine());
 				
-				System.out.println("Insira a nova data");
-				System.out.print("Dia: ");
-				dia = Integer.parseInt(ler.nextLine());
-				System.out.print("Mês: ");
-				mes = Integer.parseInt(ler.nextLine());
-				System.out.print("Ano: ");
-				ano = Integer.parseInt(ler.nextLine());
-				data = new Datas(dia, mes, ano);
-				data.setId(id);
+				System.out.println("Insert the new date: ");
+				System.out.print("Day: ");
+				day = Integer.parseInt(read.nextLine());
+				System.out.print("Month: ");
+				month = Integer.parseInt(read.nextLine());
+				System.out.print("Year: ");
+				year = Integer.parseInt(read.nextLine());
+				date = datesController.getById(id);
+				date.setDay(day);
+				date.setMonth(month);
+				date.setYear(year);
 				
-				datasController.setData(data);
+				datesController.setData(date);
 				
-				try {
-					datasController.update();
-				} catch (Exception e) {
-					System.out.println(e.getMessage());
-				}
-				
-				System.out.print("Insira o novo nome do evento: ");
-				agendaController.setNomeEvento(ler.nextLine());
-				agendaController.setData(datasController.getData());
-				agendaController.setId(id);
+				System.out.print("Insert the new event's name: ");
+				calendarController.setId(calendarController.getById(id).getId());
+				calendarController.setNomeEvento(read.nextLine());
+				calendarController.setData(datesController.getData());
+				calendarController.setId(id);
 				
 				try {
-					agendaController.update();
+					datesController.update();
+					calendarController.update();
+					System.out.println("The event was updated!");
 				} catch (Exception e) {
 					System.out.println(e.getMessage());
 				}
@@ -121,14 +121,15 @@ public class ProjetostsApplication implements CommandLineRunner {
 				break;
 				
 			case "4":
-				System.out.print("Insira o id do evento a ser deletado: ");
-				id = Integer.parseInt(ler.nextLine());
-				agendaController.setId(id);
-				agendaController.delete();
+				System.out.print("Insert the event's id to be deleted: ");
+				id = Integer.parseInt(read.nextLine());
+				calendarController.setId(id);
+				calendarController.delete();
+				System.out.println("The event was deleted!");
 				break;
 				
 			case "5":	
-				agendaController.deleteAll();
+				calendarController.deleteAll();
 				break;
 				
 			case "6":

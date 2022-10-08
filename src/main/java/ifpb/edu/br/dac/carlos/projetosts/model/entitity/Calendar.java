@@ -12,45 +12,52 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
 @Entity
-public class Agenda implements Serializable {
+public class Calendar implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	private String nomeEvento;
+	
+	private String eventName;
+	
 	@OneToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "DATA_ID")
-	private Datas data;
-	private String dataStr;
+	@JoinColumn(name = "DATE_ID")
+	private Dates date;
 	
-	public String getEvento() {
-		return nomeEvento;
-	}
-
-	public void setEvento(String evento) {
-		this.nomeEvento = evento;
-	}
+	private String dateStr;
 	
-	public Datas getData() {
-		return data;
-	}
-
-	public void setData(Datas data) {
-		this.data = data;
-		this.dataStr = data.toString();
+	public Integer getId() {
+		return id;
 	}
 
 	public void setId(Integer id) {
 		this.id = id;
 	}
 
-	public Integer getId() {
-		return id;
+	public String getEventName() {
+		return eventName;
 	}
-	
-	public String getDataStr() {
-		return dataStr;
+
+	public void setEventName(String eventName) {
+		this.eventName = eventName;
 	}
-	
+
+	public Dates getDate() {
+		return date;
+	}
+
+	public void setDate(Dates date) {
+		this.date = date;
+		setDateStr(date.toString());
+	}
+
+	public String getDateStr() {
+		return dateStr;
+	}
+
+	private void setDateStr(String dateStr) {
+		this.dateStr = dateStr;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
@@ -64,13 +71,12 @@ public class Agenda implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Agenda other = (Agenda) obj;
+		Calendar other = (Calendar) obj;
 		return Objects.equals(id, other.id);
 	}
 
 	@Override
 	public String toString() {
-		return "Agenda [id=" + id + ", evento=" + nomeEvento + ", data=" + data.toString() + "]";
+		return "Calendar [id=" + id + ", eventName=" + eventName + ", date=" + date + "]";
 	}
-	
 }
