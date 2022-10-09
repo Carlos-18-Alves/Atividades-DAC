@@ -29,7 +29,7 @@ public class ProjetostsApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		Scanner read = new Scanner(System.in);
 		
-		System.out.println("O que deseja fazer?");
+		System.out.println("What do you want to do?");
 		
 		boolean cond = true;
 		
@@ -38,15 +38,16 @@ public class ProjetostsApplication implements CommandLineRunner {
 			int day;
 			int month;
 			int year;
-			Dates date;
-			System.out.println("1 - Create event \n2 - List events '\n3 - Update event"
+			Dates date = new Dates();
+			Calendar calendar = new Calendar();
+			System.out.println("1 - Create event \n2 - List events \n3 - Update event"
 					+ "\n4 - Delete event \n5 - Delete all \n6 - Exit" );
 			String opc = read.nextLine();
 		
 			switch (opc) {
 			case "1":
 				System.out.print("Event name: ");
-				calendarController.setNomeEvento(read.nextLine());
+				calendarController.setEventName(read.nextLine());
 				
 				System.out.println("Event date");
 				System.out.print("Day: ");
@@ -57,32 +58,23 @@ public class ProjetostsApplication implements CommandLineRunner {
 				year = Integer.parseInt(read.nextLine());
 				date = new Dates(day, month, year);
 				
-				datesController.setData(date);
+				datesController.setDate(date);
 				
 				try {
 					datesController.save();
-					System.out.println("Date created!");
-				} catch (Exception e) {
-					System.out.println(e.getMessage());
-				} 
-				
-				calendarController.setData(datesController.getData());
-				
-				try {
+					calendarController.setDate(datesController.getDate());
 					calendarController.save();
 					System.out.println("The event was created!");
 				} catch (Exception e) {
 					System.out.println(e.getMessage());
-				}
-				
-				
+				} 
 				break;
 				
 			case "2":
 				List<Calendar> calendars = calendarController.getAll();
 				
-				for (Calendar calendar : calendars) {
-					System.out.println(calendar);
+				for (Calendar calendar2 : calendars) {
+					System.out.println(calendar2);
 				}
 				break;
 				
@@ -97,21 +89,20 @@ public class ProjetostsApplication implements CommandLineRunner {
 				month = Integer.parseInt(read.nextLine());
 				System.out.print("Year: ");
 				year = Integer.parseInt(read.nextLine());
-				date = datesController.getById(id);
+				date.setId(id);
 				date.setDay(day);
 				date.setMonth(month);
 				date.setYear(year);
 				
-				datesController.setData(date);
-				
-				System.out.print("Insert the new event's name: ");
-				calendarController.setId(calendarController.getById(id).getId());
-				calendarController.setNomeEvento(read.nextLine());
-				calendarController.setData(datesController.getData());
-				calendarController.setId(id);
+				datesController.setDate(date);
 				
 				try {
 					datesController.update();
+					System.out.print("Insert the new event's name: ");
+					calendar.setId(id);
+					calendar.setEventName(read.nextLine());
+					calendar.setDate(date);
+					calendarController.setCalendar(calendar);
 					calendarController.update();
 					System.out.println("The event was updated!");
 				} catch (Exception e) {
@@ -125,6 +116,9 @@ public class ProjetostsApplication implements CommandLineRunner {
 				id = Integer.parseInt(read.nextLine());
 				calendarController.setId(id);
 				calendarController.delete();
+				datesController.setDate(datesController.getById(id));
+				datesController.delete();
+				
 				System.out.println("The event was deleted!");
 				break;
 				

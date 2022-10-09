@@ -20,11 +20,11 @@ public class DatesController {
 	@Autowired
 	private ValidationService validationService;
 	
-	public void setData(Dates date) {
+	public void setDate(Dates date) {
 		this.date = date;
 	}
 	
-	public Dates getData() {
+	public Dates getDate() {
 		return this.date;
 	}
 
@@ -51,8 +51,8 @@ public class DatesController {
 		if(validationService.validateDate(date)) {
 			datesService.update(date);
 		}
-		
-		throw new Exception("This data could not be updated");
+		else
+			throw new Exception("This data could not be updated");
 	}
 	
 	public void delete() {

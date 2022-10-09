@@ -32,20 +32,26 @@ public class CalendarController {
 		this.id = id;
 	}
 
-	public String getNomeEvento() {
+	public String getEventName() {
 		return eventName;
 	}
 
-	public void setNomeEvento(String eventName) {
+	public void setEventName(String eventName) {
 		this.eventName = eventName;
 	}
 
-	public Dates getData() {
+	public Dates getDate() {
 		return date;
 	}
 
-	public void setData(Dates date) {
+	public void setDate(Dates date) {
 		this.date = date;
+	}
+	
+	public void setCalendar(Calendar calendar) {
+		id = calendar.getId();
+		eventName = calendar.getEventName();
+		date = calendar.getDate();
 	}
 	
 	public void save() throws Exception {
@@ -65,9 +71,11 @@ public class CalendarController {
 			Calendar calendar = new Calendar();
 			calendar.setEventName(eventName);
 			calendar.setDate(date);
+			calendar.setId(id);
 			
 			calendarService.update(calendar);
-		} 
+		} else 
+			throw new Exception("The calendar could not be updated");
 
 	}
 	
