@@ -1,4 +1,4 @@
-package ifpb.edu.br.dac.carlos.projetosts.model.service;
+package ifpb.edu.br.dac.carlos.projetosts.business.service;
 
 import java.time.DateTimeException;
 import java.time.LocalDate;
