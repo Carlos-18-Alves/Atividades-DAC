@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import ifpb.edu.br.dac.carlos.projetosts.business.service.CalendarService;
 import ifpb.edu.br.dac.carlos.projetosts.business.service.ConverterService;
+import ifpb.edu.br.dac.carlos.projetosts.business.service.DatesService;
 import ifpb.edu.br.dac.carlos.projetosts.business.service.ValidationService;
 import ifpb.edu.br.dac.carlos.projetosts.model.entitity.Calendar;
 import ifpb.edu.br.dac.carlos.projetosts.model.entitity.Dates;
@@ -30,7 +31,9 @@ import ifpb.edu.br.dac.carlos.projetosts.presentation.dto.CalendarDTO;
 public class CalendarController {
 	
 	@Autowired
-	private CalendarService service;
+	private CalendarService calendarService;
+	@Autowired
+	private DatesService datesService;
 	@Autowired
 	private ValidationService validationService;
 	@Autowired
@@ -41,14 +44,15 @@ public class CalendarController {
 		
 		try {
 			Calendar entity = converterService.dtoToCalendar(dto);
-			entity = service.save(entity);
+			if(validationService.validateNomeEvento(entity.getEventName())&&validationService.validateDate(entity.getDate()))
+			datesService.save(entity.getDate());
+			entity = calendarService.save(entity);
 			dto = converterService.calendarToDTO(entity);
 			
 			return new ResponseEntity(dto, HttpStatus.CREATED);
 		} catch (Exception e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}	
-
 	}
 	
 	@PutMapping("{id}")
@@ -56,21 +60,22 @@ public class CalendarController {
 		try {
 			dto.setId(id);
 			Calendar entity = converterService.dtoToCalendar(dto);
-			entity = service.update(entity);
+			if(validationService.validateNomeEvento(entity.getEventName())&&validationService.validateDate(entity.getDate()))
+				datesService.update(entity.getDate());
+			entity = calendarService.update(entity);
 			dto = converterService.calendarToDTO(entity);
 			
 			return ResponseEntity.ok(dto);
 		} catch (Exception e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
 		}	
-
 	}
 	
 	@DeleteMapping("{id}")
 	public ResponseEntity delete(@PathVariable("id") Integer id) {
 		try {
-			service.delete(id);
-			
+			calendarService.delete(id);
+			datesService.delete(id);
 			return new ResponseEntity(HttpStatus.NO_CONTENT);
 		} catch (Exception e) {
 			return ResponseEntity.badRequest().body(e.getMessage());
@@ -81,14 +86,16 @@ public class CalendarController {
 	@GetMapping
 	public ResponseEntity find(
 				@RequestParam(value = "eventName", required = false) String eventName,
-				@RequestParam(value = "id", required = false) Integer id
+				@RequestParam(value = "id", required = false) Integer id,
+				@RequestParam(value = "date", required = false) Dates date
 			) {
 		try {
 			Calendar filter = new Calendar();
 			filter.setId(id);
 			filter.setEventName(eventName);
+			filter.setDate(date);
 			
-			List<Calendar> entities = service.find(filter);
+			List<Calendar> entities = calendarService.find(filter);
 			List<CalendarDTO> dtos = converterService.calendarToDTO(entities);
 			
 			return ResponseEntity.ok(dtos);

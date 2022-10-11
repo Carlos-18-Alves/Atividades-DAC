@@ -21,7 +21,7 @@ public class CalendarDTO {
 		id = calendar.getId();
 		eventName = calendar.getEventName();
 		date = calendar.getDate();
-		dateStr = date.toString();
+		dateStr = calendar.getDate().toString();
 	}
 	
 	public Integer getId() {
