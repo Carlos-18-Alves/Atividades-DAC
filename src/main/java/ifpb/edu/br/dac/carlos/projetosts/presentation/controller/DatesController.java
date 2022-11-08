@@ -76,11 +76,12 @@ public class DatesController {
 	
 	@GetMapping
 	public ResponseEntity find(
-				@RequestParam(value = "day", required = false) int day,
-				@RequestParam(value = "month", required = false) int month,
-				@RequestParam(value = "year", required = false) int year,
-				@RequestParam(value = "id", required = false) Integer id
+	        @RequestParam(value = "day", required = false) Integer day,
+	        @RequestParam(value = "month", required = false) Integer month,
+	        @RequestParam(value = "year", required = false) Integer year,
+	        @RequestParam(value = "id", required = false) Integer id
 			) {
+	    
 		try {
 			Dates filter = new Dates();
 			filter.setId(id);

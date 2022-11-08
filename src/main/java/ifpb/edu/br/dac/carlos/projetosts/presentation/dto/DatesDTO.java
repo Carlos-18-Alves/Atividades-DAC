@@ -3,7 +3,7 @@ package ifpb.edu.br.dac.carlos.projetosts.presentation.dto;
 public class DatesDTO {
 
 	private Integer id;
-	private int day, month, year;
+	private Integer day, month, year;
 	
 	public Integer getId() {
 		return id;
@@ -11,19 +11,19 @@ public class DatesDTO {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public int getDay() {
+	public Integer getDay() {
 		return day;
 	}
 	public void setDay(int day) {
 		this.day = day;
 	}
-	public int getMonth() {
+	public Integer getMonth() {
 		return month;
 	}
 	public void setMonth(int month) {
 		this.month = month;
 	}
-	public int getYear() {
+	public Integer getYear() {
 		return year;
 	}
 	public void setYear(int year) {

@@ -44,11 +44,12 @@ public class CalendarController {
 		
 		try {
 			Calendar entity = converterService.dtoToCalendar(dto);
-			if(validationService.validateNomeEvento(entity.getEventName())&&validationService.validateDate(entity.getDate()))
-			datesService.save(entity.getDate());
-			entity = calendarService.save(entity);
-			dto = converterService.calendarToDTO(entity);
 			
+			if(validationService.validateNomeEvento(entity.getEventName())&&validationService.validateDate(entity.getDate())) {
+			    datesService.save(entity.getDate());
+			    entity = calendarService.save(entity);
+			    dto = converterService.calendarToDTO(entity);
+		    }
 			return new ResponseEntity(dto, HttpStatus.CREATED);
 		} catch (Exception e) {
 			return ResponseEntity.badRequest().body(e.getMessage());

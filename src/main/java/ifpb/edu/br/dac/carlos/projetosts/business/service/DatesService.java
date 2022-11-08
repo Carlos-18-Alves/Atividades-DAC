@@ -48,6 +48,7 @@ public class DatesService {
 	public List<Dates> find(Dates filter) {
 		Example example = Example.of(filter,
 				ExampleMatcher.matching()
+				    .withIgnoreNullValues()
 					.withIgnoreCase()
 					.withStringMatcher(StringMatcher.CONTAINING));
 		
