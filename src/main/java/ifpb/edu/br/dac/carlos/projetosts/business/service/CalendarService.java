@@ -9,7 +9,6 @@ import org.springframework.data.domain.ExampleMatcher.StringMatcher;
 import org.springframework.stereotype.Service;
 
 import ifpb.edu.br.dac.carlos.projetosts.model.entitity.Calendar;
-import ifpb.edu.br.dac.carlos.projetosts.model.entitity.Dates;
 import ifpb.edu.br.dac.carlos.projetosts.model.repository.CalendarRepository;
 
 @Service
@@ -17,12 +16,23 @@ public class CalendarService {
 	
 	@Autowired
 	private CalendarRepository repository;
+	@Autowired
+	private AuthenticationService authenticationService;
 	
 	public Calendar save(Calendar calendar) {
+	    if(calendar.getId() != null) {
+	        throw new IllegalStateException("Calendar is already in the database. Maybe you can try to update it.");
+	    }
+	    calendar.setUser(authenticationService.getLoggedUser().getId());
+	    
 		return repository.save(calendar);
 	}
 	
 	public void delete(Integer id) {
+	    if(id == null) {
+            throw new IllegalStateException("Id cannot be null.");
+        }
+        
 		repository.deleteById(id);
 	}
 	
@@ -31,6 +41,10 @@ public class CalendarService {
 	}
 
 	public Calendar update(Calendar calendar) {
+	    if(calendar.getId() == null) {
+            throw new IllegalStateException("Id cannot be null.");
+        }
+
 		return repository.save(calendar);
 	}
 	

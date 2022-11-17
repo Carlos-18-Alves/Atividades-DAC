@@ -8,7 +8,6 @@ import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.ExampleMatcher.StringMatcher;
 import org.springframework.stereotype.Service;
 
-import ifpb.edu.br.dac.carlos.projetosts.model.entitity.Calendar;
 import ifpb.edu.br.dac.carlos.projetosts.model.entitity.Dates;
 import ifpb.edu.br.dac.carlos.projetosts.model.repository.DatesRepository;
 

@@ -7,8 +7,10 @@ import org.springframework.stereotype.Service;
 
 import ifpb.edu.br.dac.carlos.projetosts.model.entitity.Calendar;
 import ifpb.edu.br.dac.carlos.projetosts.model.entitity.Dates;
+import ifpb.edu.br.dac.carlos.projetosts.model.entitity.SystemUser;
 import ifpb.edu.br.dac.carlos.projetosts.presentation.dto.CalendarDTO;
 import ifpb.edu.br.dac.carlos.projetosts.presentation.dto.DatesDTO;
+import ifpb.edu.br.dac.carlos.projetosts.presentation.dto.UserDTO;
 
 @Service
 public class ConverterService {
@@ -51,6 +53,7 @@ public class ConverterService {
 		dto.setId(entity.getId());
 		dto.setEventName(entity.getEventName());
 		dto.setDate(entity.getDate());
+		dto.setUser(entity.getUser());
 		
 		return dto;
 	}
@@ -100,5 +103,51 @@ public class ConverterService {
 		
 		return dto;
 	}
+	
+/////////////
+
+	public List<UserDTO> userToDTO(List<SystemUser> entities) {
+	    List<UserDTO> dtos = new ArrayList<>();
+        
+        for (SystemUser dto : entities) {
+            UserDTO entity = userToDTO(dto);
+            dtos.add(entity);
+        }
+        
+        return dtos;
+	}
+	
+	public List<SystemUser> dtoToUser(List<UserDTO> dtos) {
+	    List<SystemUser> entities = new ArrayList<>();
+        
+        for (UserDTO entity : dtos) {
+            SystemUser dto = dtoToUser(entity);
+            entities.add(dto);
+        }
+        
+        return entities;
+    }
+	
+    public SystemUser dtoToUser(UserDTO dto) {
+        SystemUser entity = new SystemUser();
+        
+        entity.setId(dto.getId());
+        entity.setName(dto.getName());
+        entity.setUsername(dto.getUsername());
+        entity.setPassword(dto.getPassword());
+        
+        return entity;
+    }
+
+
+    public UserDTO userToDTO(SystemUser entity) {
+        UserDTO dto = new UserDTO();
+        
+        dto.setId(entity.getId());
+        dto.setName(entity.getName());
+        dto.setUsername(entity.getUsername());
+        
+        return dto;
+    }
 }
 

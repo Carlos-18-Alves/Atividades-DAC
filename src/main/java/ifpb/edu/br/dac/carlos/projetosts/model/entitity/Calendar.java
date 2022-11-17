@@ -23,6 +23,8 @@ public class Calendar implements Serializable {
 	@JoinColumn(name = "DATE_ID")
 	private Dates date;
 	
+	private Integer userId;
+	
 	public Integer getId() {
 		return id;
 	}
@@ -47,7 +49,15 @@ public class Calendar implements Serializable {
 		this.date = date;
 	}
 
-	@Override
+	public Integer getUser() {
+        return userId;
+    }
+
+    public void setUser(Integer userId) {
+        this.userId = userId;
+    }
+
+    @Override
 	public int hashCode() {
 		return Objects.hash(id);
 	}

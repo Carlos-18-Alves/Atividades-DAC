@@ -1,12 +1,10 @@
 package ifpb.edu.br.dac.carlos.projetosts.presentation.controller;
 
 import java.util.List;
-import java.util.Scanner;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,7 +21,6 @@ import ifpb.edu.br.dac.carlos.projetosts.business.service.DatesService;
 import ifpb.edu.br.dac.carlos.projetosts.business.service.ValidationService;
 import ifpb.edu.br.dac.carlos.projetosts.model.entitity.Calendar;
 import ifpb.edu.br.dac.carlos.projetosts.model.entitity.Dates;
-import ifpb.edu.br.dac.carlos.projetosts.model.repository.CalendarRepository;
 import ifpb.edu.br.dac.carlos.projetosts.presentation.dto.CalendarDTO;
 
 @RestController

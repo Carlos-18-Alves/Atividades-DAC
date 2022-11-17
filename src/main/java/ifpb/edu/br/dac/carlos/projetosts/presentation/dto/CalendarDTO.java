@@ -11,7 +11,7 @@ public class CalendarDTO {
 	private Integer id;
 	private String eventName;
 	private Dates date;
-	private String dateStr;
+	private Integer userId;
 	
 	public CalendarDTO() {
 		
@@ -21,7 +21,6 @@ public class CalendarDTO {
 		id = calendar.getId();
 		eventName = calendar.getEventName();
 		date = calendar.getDate();
-		dateStr = calendar.getDate().toString();
 	}
 	
 	public Integer getId() {
@@ -42,14 +41,16 @@ public class CalendarDTO {
 	public void setDate(Dates date) {
 		this.date = date;
 	}
-	public String getDateStr() {
-		return dateStr;
-	}
-	public void setDateStr(String dateStr) {
-		this.dateStr = dateStr;
-	}
 	
-	public static List<CalendarDTO> toConvert(List<Calendar> calendars){
+	public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUser(Integer integer) {
+        this.userId = integer;
+    }
+
+    public static List<CalendarDTO> toConvert(List<Calendar> calendars){
 		return calendars.stream().map(CalendarDTO:: new).collect(Collectors.toList());
 	}
 	
