@@ -62,25 +62,25 @@ print = () => {
   render(){
     return (
       <div className="App-header">
-        <div class="form-group">
-            <label class="col-form-label mt-4" htmlFor="inputDefault">Day: </label>
-            <input type="text" class="form-control" placeholder="Insert day" id="inputDefault"
+        <div className="form-group">
+            <label className="col-form-label mt-4" htmlFor="inputDefault">Day: </label>
+            <input type="text" className="form-control" placeholder="Insert day" id="inputDefault"
             value={this.state.day} onChange={(e) => {this.setState({day: e.target.value})}} />
         </div>
 
-        <div class="form-group">
-            <label class="col-form-label mt-4" htmlFor="inputDefault">Month: </label>
-            <input type="text" class="form-control" placeholder="Insert month" id="inputDefault"
+        <div className="form-group">
+            <label className="col-form-label mt-4" htmlFor="inputDefault">Month: </label>
+            <input type="text" className="form-control" placeholder="Insert month" id="inputDefault"
             value={this.state.month} onChange={(e) => {this.setState({month: e.target.value})}} />
         </div>
 
-        <div class="form-group">
-            <label class="col-form-label mt-4" htmlFor="inputDefault">Year: </label>
-            <input type="text" class="form-control" placeholder="Insert year" id="inputDefault"
+        <div className="form-group">
+            <label className="col-form-label mt-4" htmlFor="inputDefault">Year: </label>
+            <input type="text" className="form-control" placeholder="Insert year" id="inputDefault"
             value={this.state.year} onChange={(e) => {this.setState({year: e.target.value})}} />
         </div>
         <br/>
-        <button type="button" class="btn btn-primary" onClick={this.print}>Print</button>
+        <button type="button" className="btn btn-primary" onClick={this.print}>Print</button>
 
       </div>
     );
